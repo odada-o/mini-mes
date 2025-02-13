@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {equipmentSlice} from "@/store/slices/equipment.slice.ts";
 import {deviceSlice} from "@/store/slices/device.slice.ts";
 import {counterSlice} from "@/store/slices/counter.slice.ts";
+import {authSlice} from "@/store/slices/auth.slice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -9,7 +10,12 @@ export const store = configureStore({
         equipment: equipmentSlice.reducer,
         device: deviceSlice.reducer,
         counter: counterSlice.reducer,
-    }
+        auth: authSlice.reducer
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false // JWT 토큰 때문에 직렬화 체크 비활성화
+        }),
 })
 
 export type RootState = ReturnType<typeof store.getState>;
