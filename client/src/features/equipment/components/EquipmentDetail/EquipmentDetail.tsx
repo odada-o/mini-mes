@@ -1,24 +1,33 @@
 // src/features/equipment/components/EquipmentDetail.tsx
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "@/store/hooks.ts";
-import {deleteEquipment, updateStatus} from "@/store/slices/equipment.slice.ts";
+import {deleteEquipment, updateEquipment, updateStatus} from "@/store/slices/equipment.slice.ts";
 import {useState} from "react";
 import {getStatusColor, getStatusText} from "@/features/equipment/utils/statusUtils.ts";
 import {EquipmentStatus} from "@/features/equipment/types/equipment.types.ts";
+import {useGetEquipmentByIdQuery, useUpdateEquipmentStatusMutation} from "@/store/apis/equipmentApi.ts";
 
 export const EquipmentDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const [isDeleting, setIsDeleting] = useState(false);
+
+    const dispatch = useAppDispatch();
     const [isStatusMenuOpen, setIsStatusMenuOpen] = useState(false);
 
-    // 임시로 목업 데이터 사용
-    const equipment = useAppSelector(state => state.equipment.items.find(item => item.id === id));
+    // RTK Query hooks 사용
+    const {data: equipment, isLoading, error} = useGetEquipmentByIdQuery(id);
+    const [updateEquipmentStatus] = useUpdateEquipmentStatusMutation();
 
-    if (!equipment) {
-        return <div>설비를 찾을 수 없습니다.</div>;
-    }
+    // 로딩 상태 처리
+    if (isLoading) return <div>로딩 중...</div>;
+    // 에러 처리
+    if (error) return <div>오류 발생: {error}</div>;
+    // 데이터가 없는 경우
+    if (!equipment) return <div>설비를 찾을 수 없습니다.</div>;
+
+    // 임시로 목업 데이터 사용
+    // const equipment = useAppSelector(state => state.equipment.items.find(item => item.id === id));
 
     // 삭제 핸들러
     const handleDelete = async () => {
@@ -42,7 +51,11 @@ export const EquipmentDetail = () => {
     const handleStatusChange = async (status: EquipmentStatus) => {
         try {
             // 상태 변경 API 호출
-            dispatch(updateStatus({ id: equipment.id, status }));
+            // dispatch(updateStatus({ id: equipment.id, status }));
+
+            // RTK Query mutation 사용
+            await updateEquipmentStatus({ id: equipment.id, status }).unwrap()
+            setIsStatusMenuOpen(false);
         } catch (error) {
             console.error('상태 변경 중 오류 발생:', error);
             alert('상태 변경 중 오류가 발생했습니다.');

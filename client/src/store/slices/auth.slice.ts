@@ -15,7 +15,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         // 로그인 성공 시 크리덴셜 설정
-        setCredentails: (state, action) => {
+        setCredentials: (state, action) => {
             const {user, accessToken, refreshToken} = action.payload;
             state.user = user;
             state.accessToken = accessToken;
@@ -44,7 +44,7 @@ export const authSlice = createSlice({
 })
 
 // 액션 생성자 함수 내보내기
-export const { setCredentails, logout, setLoading, setError } = authSlice.actions;
+export const { setCredentials, logout, setLoading, setError } = authSlice.actions;
 
 // 선택자(Selector) 함수 내보내기
 export const selectCurrentUser = (state: {auth: AuthState}) => state.auth.user;

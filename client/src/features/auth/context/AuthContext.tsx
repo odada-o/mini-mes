@@ -1,7 +1,7 @@
 // src/features/auth/context/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '@/features/auth/types/auth.types.ts';
-import { authApi } from '@/features/auth/api/authApi.ts';
+import { authApi } from '@/store/apis/authApi.ts';
 
 interface AuthContextType {
     user: User | null;

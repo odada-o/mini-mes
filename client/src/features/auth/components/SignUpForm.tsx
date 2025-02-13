@@ -1,7 +1,7 @@
 // src/features/auth/components/SignUpForm.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { authApi } from '@/features/auth/api/authApi.ts';
+import { authApi } from '@/store/apis/authApi.ts';
 import {Alert, Button, Input} from "@/shared/components";
 import {Label} from "@radix-ui/react-label";
 

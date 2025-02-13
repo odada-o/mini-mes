@@ -1,14 +1,19 @@
 import {Alert, AlertDescription, Button, Card, CardContent, Input} from "@/shared/components";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "@/store/hooks.ts";
+import {useLoginMutation} from "@/store/apis/authApi.ts";
+import {setCredentials} from "@/store/slices/auth.slice.ts";
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     })
     const [error, setError] = useState<string | null>(null);
+    const [login] = useLoginMutation();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,15 +21,8 @@ const LoginForm = () => {
 
         // Add your login logic
         try {
-            const response = await fetch('http://localhost:3001/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-            const data = await response.json();
-            console.log(data);
+            const response = await login(formData).unwrap();
+            dispatch(setCredentials(response));
             navigate('/dashboard');
 
         } catch (error) {

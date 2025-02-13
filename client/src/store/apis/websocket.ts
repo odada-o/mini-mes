@@ -2,7 +2,7 @@
 
 import { Middleware } from '@reduxjs/toolkit';
 import { io, Socket } from 'socket.io-client';
-import { Equipment } from '../types/equipment.types';
+import { Equipment } from '../../features/equipment/types/equipment.types.ts';
 
 let socket: Socket;
 
