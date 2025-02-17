@@ -1,8 +1,10 @@
+import {useParams} from "react-router-dom";
 
 const ReadPage = () => {
+    const {id} = useParams<{id: string}>();
     return (
         <div>
-            ReadPage
+            ReadPage: {id}
         </div>
     );
 };

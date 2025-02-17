@@ -8,6 +8,9 @@ import EquipmentListPage from "@/pages/equipmentlist/EquipmentListPage.tsx";
 import EquipmentDetailPage from "@/pages/equipmentlist/EquipmentDetailPage.tsx";
 import MonitoringDashboardPage from "@/pages/equipmentlist/MonitoringDashboardPage.tsx";
 import About from "@/pages/about/About.tsx";
+import ListPage from "@/pages/todo/ListPage.tsx";
+import ModifyPage from "@/pages/todo/ModifyPage.tsx";
+import ReadPage from "@/pages/todo/ReadPage.tsx";
 
 export const routes: RouteObject[] = [
     {
@@ -55,7 +58,7 @@ export const routes: RouteObject[] = [
       children: [
           {
               index: true,
-                element: <div>Todo List</div>
+                element: <ListPage />
           },
           {
               path: 'add',
@@ -63,11 +66,11 @@ export const routes: RouteObject[] = [
           },
           {
               path: 'modify/:id',
-                element: <div>Todo Modify</div>
+                element: <ModifyPage />
           },
           {
               path: 'read/:id',
-              element: <div>Todo Read</div>
+              element: <ReadPage />
           }
       ]
     },
