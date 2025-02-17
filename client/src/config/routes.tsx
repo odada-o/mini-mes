@@ -24,6 +24,10 @@ export const routes: RouteObject[] = [
         ]
     },
     {
+        path: '/about',
+        element: <About />
+    },
+    {
         path: '/',
         element: <MainLayout />,
         children: [
@@ -46,11 +50,30 @@ export const routes: RouteObject[] = [
         ]
     },
     {
-        path: '/about',
-        element: <About />
+      path: '/todo',
+        element: <MainLayout />,
+      children: [
+          {
+              index: true,
+                element: <div>Todo List</div>
+          },
+          {
+              path: 'add',
+                element: <div>Todo Add</div>
+          },
+          {
+              path: 'modify/:id',
+                element: <div>Todo Modify</div>
+          },
+          {
+              path: 'read/:id',
+              element: <div>Todo Read</div>
+          }
+      ]
     },
     {
         path: '*',
         element: <NotFound />
-    }
+    },
+
 ];
