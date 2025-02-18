@@ -4,9 +4,6 @@ import { AuthLayout, MainLayout } from "../layouts";
 import NotFound from "../pages/NotFound";
 import LoginPage from "@/pages/(auth)/LoginPage";
 import SignUpPage from "@/pages/(auth)/SignUpPage";
-import EquipmentListPage from "@/pages/equipmentlist/EquipmentListPage.tsx";
-import EquipmentDetailPage from "@/pages/equipmentlist/EquipmentDetailPage.tsx";
-import MonitoringDashboardPage from "@/pages/equipmentlist/MonitoringDashboardPage.tsx";
 import About from "@/pages/about/About.tsx";
 import ListPage from "@/pages/todo/ListPage.tsx";
 import ModifyPage from "@/pages/todo/ModifyPage.tsx";
@@ -36,19 +33,19 @@ export const routes: RouteObject[] = [
         children: [
             {
                 index: true,
-                element: <EquipmentListPage />
+                element: <div>Home</div>
             },
             {
                 path: 'equipment',
-                element: <EquipmentListPage />
+                element: <div>Equipment</div>
             },
             {
                 path: 'equipment/:id',
-                element: <EquipmentDetailPage />
+                element: <div>Equipment Detail</div>
             },
             {
                 path: 'monitoring',
-                element: <MonitoringDashboardPage />
+                element: <div>Monitoring Dashboard</div>
             }
         ]
     },

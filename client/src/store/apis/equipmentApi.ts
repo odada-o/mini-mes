@@ -9,10 +9,21 @@ export const equipmentApi = createApi({
     reducerPath: 'equipmentApi',
 
     // 기본 API 설정 (기본 URL 등)
-    baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: '/api',
+        prepareHeaders: (headers, { getState }) => {
+            // 상태에서 토큰 가져오기
+            const token = (getState() as any).auth.token;
+
+            if (token) {
+                headers.set('authorization', `Bearer ${token}`);
+            }
+            return headers;
+        },
+    }),
 
     // 캐시 무효화에 사용할 태그 타입들
-    tagTypes: ['Equipment'],
+    tagTypes: ['Equipment', 'EquipmentMetrics'],
 
     // API 엔드포인트들을 정의합니다
     endpoints: (builder) => ({

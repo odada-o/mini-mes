@@ -1,10 +1,9 @@
-// src/features/auth/api/authApi.ts
-
-import {RootState} from "../index.ts";
+// src/store/apis/authApi.ts
+import {RootState} from "../index";
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: '/api/auth', // 실제 서버 주소로 변경
+    baseUrl: '/api', // 실제 서버 주소로 변경
     // baseUrl: `${import.meta.env.VITE_API_BASE_URL}/api/auth`, // 환경 변수로 변경
     credentials: 'include', // 쿠키 포함
     // 헤더에 토큰을 포함시키는 함수
@@ -64,4 +63,10 @@ export const authApi = createApi({
     })
 })
 
-export const {useLoginMutation, useRegisterMutation, useLogoutMutation, useMeQuery, useRefreshMutation} = authApi;
+export const {
+    useLoginMutation,
+    useRegisterMutation,
+    useLogoutMutation,
+    useMeQuery,
+    useRefreshMutation
+} = authApi;

@@ -14,7 +14,7 @@ export interface User {
     email: string;
     name: string;
     role: UserRole;
-    department?: string;
+    department?: string; // 부서 정보
 }
 
 // 로그인 요청 시 필요한 데이터 타입
